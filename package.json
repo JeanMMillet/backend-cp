@@ -1,0 +1,34 @@
+{
+  "name": "backend-cp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeanMMillet/backend-cp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeanMMillet/backend-cp/issues"
+  },
+  "homepage": "https://github.com/JeanMMillet/backend-cp#readme",
+  "devDependencies": {
+    "@apollo/server": "^4.10.2",
+    "@types/node": "^20.12.7",
+    "class-validator": "^0.14.1",
+    "reflect-metadata": "^0.2.2",
+    "sql-fixtures": "^1.0.4",
+    "sqlite3": "^5.1.7",
+    "ts-node-dev": "^2.0.0",
+    "type-graphql": "^2.0.0-beta.6",
+    "typeorm": "^0.3.20",
+    "typeorm-fixtures-cli": "^4.0.0",
+    "typescript": "^5.4.5"
+  }
+}
