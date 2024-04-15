@@ -1,40 +1,14 @@
 import db from "./db";
-import CountryService from "./services/country.service";
-
-async function clearDB() {
-  const runner = db.createQueryRunner();
-  await runner.query("PRAGMA foreign_keys=OFF");
-  await Promise.all(
-    db.entityMetadatas.map(async (entity) =>
-      runner.query(`DROP TABLE IF EXISTS ${entity.tableName}`)
-    )
-  );
-  await runner.query("PRAGMA foreign_keys=ON");
-  await db.synchronize();
-}
+import { Country } from "./entities/country.entity";
+import { countries } from "./fixtures/fakeData";
 
 async function main() {
   await db.initialize();
-  await clearDB();
+  await db.getRepository(Country).clear();
+  db.query("delete from sqlite_sequence where name='country';");
+  await db.getRepository(Country).save(countries);
 
-  const country1 = await new CountryService().create({
-    name: "France",
-    code: "FR",
-    emoji: "🇫🇷",
-    continent: "EUR",
-  });
-  const country2 = await new CountryService().create({
-    name: "Italie",
-    code: "IT",
-    emoji: "🇮🇹",
-    continent: "EUR",
-  });
-  const country3 = await new CountryService().create({
-    name: "Japon",
-    code: "JP",
-    emoji: "🇯🇵",
-    continent: "ASI",
-  });
+  console.log("Database initialized ! 🚀🚀");
 }
 
 main();

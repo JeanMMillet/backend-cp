@@ -1,5 +1,9 @@
 import { Repository } from "typeorm";
-import { Country, CreateCountryInput } from "../entities/country.entity";
+import {
+  Continent,
+  Country,
+  CreateCountryInput,
+} from "../entities/country.entity";
 import datasource from "../db";
 
 export default class CountryService {
@@ -13,11 +17,15 @@ export default class CountryService {
   }
 
   async create(infos: CreateCountryInput) {
+    const alreadyExist = await this.db.findOne({ where: { name: infos.name } });
+    if (alreadyExist)
+      throw new Error("This country alreasy exists in the database");
+
     const newCountry = this.db.create(infos);
     return await this.db.save(newCountry);
   }
 
-  async listByContinent(continent: string) {
+  async listByContinent(continent: Continent) {
     return await this.db.find({
       where: {
         continent,
@@ -26,9 +34,7 @@ export default class CountryService {
   }
 
   async findByCode(code: string) {
-    console.log("code", code);
     const country = await this.db.findOne({ where: { code } });
-    console.log('country', country)
     return country;
   }
 }

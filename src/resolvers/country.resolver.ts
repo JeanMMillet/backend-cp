@@ -1,5 +1,9 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { Country, CreateCountryInput } from "../entities/country.entity";
+import {
+  Continent,
+  Country,
+  CreateCountryInput,
+} from "../entities/country.entity";
 import CountryService from "../services/country.service";
 
 @Resolver()
@@ -9,14 +13,13 @@ export class CountryResolver {
     return await new CountryService().list();
   }
   @Query(() => [Country])
-  async listByContinent(@Arg("continent") continent: string) {
+  async listByContinent(@Arg("continent") continent: Continent) {
     return await new CountryService().listByContinent(continent);
   }
 
   @Query(() => Country)
   async findByCode(@Arg("code") code: string) {
     const country = await new CountryService().findByCode(code);
-    console.log("country", country);
     return country;
   }
 

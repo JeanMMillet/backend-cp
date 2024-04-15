@@ -2,6 +2,8 @@ import { Field, InputType, ObjectType } from "type-graphql";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Length } from "class-validator";
 
+export type Continent = "EU" | "AF" | "AS" | "OC" | "SA" | "NA";
+
 @ObjectType()
 @Entity()
 export class Country {
@@ -25,7 +27,7 @@ export class Country {
 
   @Field()
   @Column()
-  continent: string;
+  continent: Continent;
 }
 
 @InputType()
@@ -37,5 +39,5 @@ export class CreateCountryInput {
   @Field()
   emoji: string;
   @Field()
-  continent: string;
+  continent: Continent;
 }
